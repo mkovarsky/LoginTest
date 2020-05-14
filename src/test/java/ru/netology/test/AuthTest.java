@@ -4,7 +4,7 @@ import com.codeborne.selenide.Condition;
 import lombok.val;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import ru.netology.data.RegistrationDataGenerator;
+import ru.netology.dataGenerator.RegistrationDataGenerator;
 
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
