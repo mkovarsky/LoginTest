@@ -43,5 +43,9 @@ public class RegistrationDataGenerator {
         setUpAll(registrationData);
         return registrationData;
     }
-
+    public static RegistrationData generateUnregisteredUser() {
+        Faker faker = new Faker(new Locale("en"));
+        RegistrationData registrationData = new RegistrationData(faker.name().firstName(), faker.internet().password(), "blocked");
+        return registrationData;
+    }
 }
