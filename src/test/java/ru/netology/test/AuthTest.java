@@ -1,7 +1,10 @@
+package ru.netology.test;
+
 import com.codeborne.selenide.Condition;
 import lombok.val;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import ru.netology.data.RegistrationDataGenerator;
 
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
@@ -16,7 +19,7 @@ public class AuthTest {
         val user = RegistrationDataGenerator.generateActiveUser();
         $("input[name =login]").setValue(user.getLogin());
         $("input[name=password]").setValue(user.getPassword());
-        $("button[type=button][data-test-id=action-login]").click();
+        $("button[type=button][ru.netology.data-ru.netology.test-id=action-login]").click();
         $(withText("Личный кабинет")).shouldBe(Condition.visible);
     }
 
@@ -27,7 +30,7 @@ public class AuthTest {
         val user = RegistrationDataGenerator.generateBlockedUser();
         $("input[name =login]").setValue(user.getLogin());
         $("input[name=password]").setValue(user.getPassword());
-        $("button[type=button][data-test-id=action-login]").click();
+        $("button[type=button][ru.netology.data-ru.netology.test-id=action-login]").click();
         $(withText("Ошибка")).shouldBe(Condition.visible);
     }
 
@@ -37,7 +40,7 @@ public class AuthTest {
         open("http://localhost:9999");
         val person = RegistrationDataGenerator.generateActiveUser();
         $("input[name=password]").setValue(person.getPassword());
-        $("button[type=button][data-test-id=action-login]").click();
+        $("button[type=button][ru.netology.data-ru.netology.test-id=action-login]").click();
         $(withText("Поле обязательно для заполнения")).shouldBe(Condition.visible);
     }
 
@@ -47,7 +50,7 @@ public class AuthTest {
         open("http://localhost:9999");
         val user = RegistrationDataGenerator.generateActiveUser();
         $("input[name =login]").setValue(user.getLogin());
-        $("button[type=button][data-test-id=action-login]").click();
+        $("button[type=button][ru.netology.data-ru.netology.test-id=action-login]").click();
         $(withText("Поле обязательно для заполнения")).shouldBe(Condition.visible);
     }
 
@@ -58,7 +61,7 @@ public class AuthTest {
         val user = RegistrationDataGenerator.generateActiveUser();
         $("input[name =login]").setValue("abracadabra");
         $("input[name=password]").setValue(user.getPassword());
-        $("button[type=button][data-test-id=action-login]").click();
+        $("button[type=button][ru.netology.data-ru.netology.test-id=action-login]").click();
         $(withText("Ошибка")).shouldBe(Condition.visible);
     }
 
@@ -69,7 +72,7 @@ public class AuthTest {
         val user = RegistrationDataGenerator.generateActiveUser();
         $("input[name =login]").setValue(user.getLogin());
         $("input[name=password]").setValue("abracadabra");
-        $("button[type=button][data-test-id=action-login]").click();
+        $("button[type=button][ru.netology.data-ru.netology.test-id=action-login]").click();
         $(withText("Ошибка")).shouldBe(Condition.visible);
     }
 }

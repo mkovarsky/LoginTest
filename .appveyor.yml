@@ -7,11 +7,11 @@ branches:
 build: off
 
 install:
-  - ps: $App = Start-Process -FilePath java -ArgumentList "-jar ./artifacts/app-ibank.jar -P:profile=test" -PassThru
+  - ps: $App = Start-Process -FilePath java -ArgumentList "-jar ./artifacts/app-ibank.jar -P:profile=ru.netology.test" -PassThru
 
 build_script:
   - ps: chmod +x gradlew
-  - ps: ./gradlew test --info "-Dselenide.headless=true"
+  - ps: ./gradlew ru.netology.test --info "-Dselenide.headless=true"
 
 on_finish:
   - ps: Stop-Process -Id $App.Id
