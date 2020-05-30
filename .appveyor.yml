@@ -1,17 +1,17 @@
 image: Ubuntu1804
 
-branches:
-  only:
-    - master
+          branches:
+            only:
+              - master
 
-build: off
+          build: off
 
-install:
-  - ps: $App = Start-Process -FilePath java -ArgumentList "-jar ./artifacts/app-ibank.jar -P:profile=test" -PassThru
+          install:
+            - ps: $App = Start-Process -FilePath java -ArgumentList "-jar ./artifacts/app-ibank.jar -P:profile=test" -PassThru
 
-build_script:
-  - ps: chmod +x gradlew
-  - ps: ./gradlew test --info "-Dselenide.headless=true"
+          build_script:
+            - ps: chmod +x gradlew
+            - ps: ./gradlew test --info "-Dselenide.headless=true"
 
-on_finish:
-  - ps: Stop-Process -Id $App.Id
+          on_finish:
+            - ps: Stop-Process -Id $App.Id

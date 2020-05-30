@@ -1,17 +1,30 @@
 package ru.netology.test;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
 import lombok.val;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import ru.netology.dataGenerator.RegistrationDataGenerator;
 
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
+
 @DisplayName("Тест авторизации")
 public class AuthTest {
+
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
+
+    @AfterAll
+    static void tearDownAll() {
+        SelenideLogger.removeListener("allure");
+    }
+
     @Test
     @DisplayName("Позитивный кейс")
     void shouldSubmitValidCredentials() {
@@ -75,6 +88,7 @@ public class AuthTest {
         $("button[type=button][data-test-id=action-login]").click();
         $(withText("Ошибка")).shouldBe(Condition.visible);
     }
+
     @Test
     @DisplayName("Негативный кейс, пользователь не зарегистрирован")
     void shouldNotSubmitCredentialsOfUnregisteredUser() {
@@ -84,5 +98,16 @@ public class AuthTest {
         $("input[name=password]").setValue(user.getPassword());
         $("button[type=button][data-test-id=action-login]").click();
         $(withText("Ошибка")).shouldBe(Condition.visible);
+    }
+
+    @Test
+    @DisplayName("Падающий тест для проверки создания скриншота")
+    void shouldMakeScreenshot() {
+        open("http://localhost:9999");
+        val user = RegistrationDataGenerator.generateUnregisteredUser();
+        $("input[name =login]").setValue(user.getLogin());
+        $("input[name=password]").setValue(user.getPassword());
+        $("button[type=button][data-test-id=action-login]").click();
+        $(withText("Личный кабинет")).shouldBe(Condition.visible);
     }
 }
